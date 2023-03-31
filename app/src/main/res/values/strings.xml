@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GithubApp</string>
+    <string name="search_menu">Search Menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="text_bio_empty">Data bio not available</string>
+    <string name="text_company_empty">Data company not available</string>
+    <string name="text_location_empty">Data location not available</string>
+    <string name="tab_following_user">Following</string>
+    <string name="tab_follower_user">Follower</string>
+    <string name="text_greeting_home">Please use the search feature to find Github user data</string>
+</resources>

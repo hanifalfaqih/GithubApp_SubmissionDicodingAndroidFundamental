@@ -4,12 +4,14 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import id.allana.githubapp_bfaa.R
 import id.allana.githubapp_bfaa.data.base.BaseFragment
 import id.allana.githubapp_bfaa.data.base.GenericViewModelFactory
 import id.allana.githubapp_bfaa.data.base.Resource
 import id.allana.githubapp_bfaa.data.datasource.GithubUserDataSourceImpl
 import id.allana.githubapp_bfaa.data.model.ItemsItem
 import id.allana.githubapp_bfaa.databinding.FragmentListFollowingUserBinding
+import id.allana.githubapp_bfaa.ui.detail.DetailUserFragment.Companion.EXTRA_USERNAME
 
 
 class ListFollowingUserFragment : BaseFragment<FragmentListFollowingUserBinding, ListFollowingViewModel>(
@@ -20,7 +22,7 @@ class ListFollowingUserFragment : BaseFragment<FragmentListFollowingUserBinding,
 
     override fun initView() {
         initList()
-        val username = arguments?.getString("EXTRA_USERNAME")
+        val username = arguments?.getString(EXTRA_USERNAME)
         username?.let {
             getDataDetail(it)
         }
@@ -68,7 +70,7 @@ class ListFollowingUserFragment : BaseFragment<FragmentListFollowingUserBinding,
                 is Resource.Error -> {
                     showLoading(false)
                     showContent(false)
-                    showError(true, "Gagal mendapatkan data")
+                    showError(true, getString(R.string.text_error_failed_get_data))
                 }
             }
         }

@@ -93,7 +93,7 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
                 is Resource.Error -> {
                     showLoading(false)
                     showContent(false)
-                    showError(true, "Gagal mendapatkan data")
+                    showError(true, getString(R.string.text_error_failed_get_data))
                     setTextEmptyData(false)
                 }
             }

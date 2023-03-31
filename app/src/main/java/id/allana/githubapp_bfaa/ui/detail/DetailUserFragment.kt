@@ -29,6 +29,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
             R.string.tab_following_user,
             R.string.tab_follower_user
         )
+        const val EXTRA_USERNAME = "extra_username"
     }
 
     override fun initView() {
@@ -38,7 +39,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
         }
 
         val mBundle = Bundle()
-        mBundle.putString("EXTRA_USERNAME", dataUsername.username)
+        mBundle.putString(EXTRA_USERNAME, dataUsername.username)
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.dataBundle = mBundle
@@ -83,7 +84,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 is Resource.Error -> {
                     showLoading(false)
                     showContent(false)
-                    showError(true, "Gagal mendapatkan data")
+                    showError(true, getString(R.string.text_error_failed_get_data))
                 }
             }
         }

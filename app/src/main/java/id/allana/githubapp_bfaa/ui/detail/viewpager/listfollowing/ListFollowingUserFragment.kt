@@ -8,8 +8,8 @@ import id.allana.githubapp_bfaa.R
 import id.allana.githubapp_bfaa.data.base.BaseFragment
 import id.allana.githubapp_bfaa.data.base.GenericViewModelFactory
 import id.allana.githubapp_bfaa.data.base.Resource
-import id.allana.githubapp_bfaa.data.datasource.GithubUserDataSourceImpl
-import id.allana.githubapp_bfaa.data.model.ItemsItem
+import id.allana.githubapp_bfaa.data.datasource.network.GithubUserDataSourceImpl
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import id.allana.githubapp_bfaa.databinding.FragmentListFollowingUserBinding
 import id.allana.githubapp_bfaa.ui.detail.DetailUserFragment.Companion.EXTRA_USERNAME
 

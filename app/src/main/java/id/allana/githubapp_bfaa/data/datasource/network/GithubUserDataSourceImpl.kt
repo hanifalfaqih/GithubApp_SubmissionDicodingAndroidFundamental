@@ -1,6 +1,8 @@
-package id.allana.githubapp_bfaa.data.datasource
+package id.allana.githubapp_bfaa.data.datasource.network
 
-import id.allana.githubapp_bfaa.data.model.*
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ResponseDetailUser
+import id.allana.githubapp_bfaa.data.model.network.ResponseSearchUser
 import id.allana.githubapp_bfaa.data.network.ApiConfig
 
 class GithubUserDataSourceImpl: GithubUserDataSource {

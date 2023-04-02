@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import id.allana.githubapp_bfaa.data.model.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import id.allana.githubapp_bfaa.databinding.ListItemUserBinding
 
 class ListUserAdapter: RecyclerView.Adapter<ListUserAdapter.ListUserViewHolder>() {

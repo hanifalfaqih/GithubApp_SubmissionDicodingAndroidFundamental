@@ -3,8 +3,8 @@ package id.allana.githubapp_bfaa.ui.list
 import androidx.lifecycle.LiveData
 import id.allana.githubapp_bfaa.data.base.BaseContract
 import id.allana.githubapp_bfaa.data.base.Resource
-import id.allana.githubapp_bfaa.data.model.ItemsItem
-import id.allana.githubapp_bfaa.data.model.ResponseSearchUser
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ResponseSearchUser
 
 interface ListUserContract {
 

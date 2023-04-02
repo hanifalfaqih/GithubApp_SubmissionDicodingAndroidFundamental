@@ -1,4 +1,4 @@
-package id.allana.githubapp_bfaa.data.model
+package id.allana.githubapp_bfaa.data.model.network
 
 import com.google.gson.annotations.SerializedName
 

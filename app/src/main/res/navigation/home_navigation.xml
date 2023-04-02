@@ -37,4 +37,9 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/listUserFavoriteFragment"
+        android:name="id.allana.githubapp_bfaa.ui.favorite.ListUserFavoriteFragment"
+        android:label="fragment_list_user_favorite"
+        tools:layout="@layout/fragment_list_user_favorite" />
 </navigation>

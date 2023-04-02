@@ -1,6 +1,9 @@
 package id.allana.githubapp_bfaa.data.network
 
 import id.allana.githubapp_bfaa.data.model.*
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ResponseDetailUser
+import id.allana.githubapp_bfaa.data.model.network.ResponseSearchUser
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

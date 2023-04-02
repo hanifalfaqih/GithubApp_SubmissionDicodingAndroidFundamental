@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import id.allana.githubapp_bfaa.data.base.BaseViewModelImpl
 import id.allana.githubapp_bfaa.data.base.Resource
-import id.allana.githubapp_bfaa.data.model.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeoutException
 
 class ListUserViewModel(private val listUserRepository: ListUserRepository): BaseViewModelImpl(), ListUserContract.ViewModel {
 

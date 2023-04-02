@@ -3,8 +3,7 @@ package id.allana.githubapp_bfaa.ui.detail.viewpager.listfollower
 import androidx.lifecycle.LiveData
 import id.allana.githubapp_bfaa.data.base.BaseContract
 import id.allana.githubapp_bfaa.data.base.Resource
-import id.allana.githubapp_bfaa.data.model.ItemsItem
-import id.allana.githubapp_bfaa.data.model.ResponseFollowerUser
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 
 interface ListFollowerContract {
 

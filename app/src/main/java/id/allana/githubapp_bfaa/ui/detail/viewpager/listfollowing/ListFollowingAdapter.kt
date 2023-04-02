@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import id.allana.githubapp_bfaa.data.model.ItemsItem
+import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import id.allana.githubapp_bfaa.databinding.ListItemUserBinding
 import id.allana.githubapp_bfaa.ui.detail.DetailUserFragmentDirections
-import id.allana.githubapp_bfaa.ui.list.ListUserFragmentDirections
 
 class ListFollowingAdapter: RecyclerView.Adapter<ListFollowingAdapter.ListFollowingViewHolder>() {
 

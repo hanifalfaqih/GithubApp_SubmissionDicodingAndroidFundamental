@@ -14,8 +14,11 @@ import id.allana.githubapp_bfaa.R
 import id.allana.githubapp_bfaa.data.base.BaseFragment
 import id.allana.githubapp_bfaa.data.base.GenericViewModelFactory
 import id.allana.githubapp_bfaa.data.base.Resource
-import id.allana.githubapp_bfaa.data.datasource.GithubUserDataSourceImpl
-import id.allana.githubapp_bfaa.data.model.ResponseDetailUser
+import id.allana.githubapp_bfaa.data.datasource.local.UserDataSourceImpl
+import id.allana.githubapp_bfaa.data.datasource.network.GithubUserDataSourceImpl
+import id.allana.githubapp_bfaa.data.local.UserDatabase
+import id.allana.githubapp_bfaa.data.model.local.User
+import id.allana.githubapp_bfaa.data.model.network.ResponseDetailUser
 import id.allana.githubapp_bfaa.databinding.FragmentDetailUserBinding
 import id.allana.githubapp_bfaa.ui.detail.viewpager.SectionsPagerAdapter
 
@@ -32,9 +35,13 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
         const val EXTRA_USERNAME = "extra_username"
     }
 
+    private var isFavorite = false
+    private lateinit var username: String
+
     override fun initView() {
         val dataUsername by navArgs<DetailUserFragmentArgs>()
         dataUsername.username?.let {
+            username = it
             getDataDetail(it)
         }
 
@@ -50,13 +57,13 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
-
-        
     }
 
     override fun initViewModel(): DetailUserViewModel {
-        val dataSource = GithubUserDataSourceImpl()
-        val repository = DetailUserRepository(dataSource)
+        val networkDataSource = GithubUserDataSourceImpl()
+        val localDataSource =
+            UserDataSourceImpl(UserDatabase.getInstance(requireContext()).userDao())
+        val repository = DetailUserRepository(networkDataSource, localDataSource)
         return GenericViewModelFactory(DetailUserViewModel(repository)).create(DetailUserViewModel::class.java)
     }
 
@@ -77,8 +84,8 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                     showLoading(false)
                     showError(false, null)
                     showContent(true)
-                    resource.data?.let {
-                        setDataDetail(it)
+                    resource.data?.let { responseDetailUser ->
+                        setDataDetail(responseDetailUser)
                     }
                 }
                 is Resource.Error -> {
@@ -87,6 +94,38 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                     showError(true, getString(R.string.text_error_failed_get_data))
                 }
             }
+        }
+        getViewModel().insertUserLiveData().observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    showError(true, "Success add to favorite")
+                }
+                is Resource.Error -> {
+                    showError(true, "Failed add to favorite")
+                }
+            }
+        }
+        getViewModel().deleteUserLiveData().observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    showError(true, "Success delete from favorite")
+                }
+                is Resource.Error -> {
+                    showError(true, "Failed delete from favorite")
+                }
+            }
+        }
+
+        /**
+         * check if any data in favorite
+         * use username to filter data
+         * set value isFavorite true or false
+         */
+        getViewModel().getFavoriteUserByUsername(username).observe(viewLifecycleOwner) { isFavorite ->
+            this.isFavorite = isFavorite
+            checkDataFavorite(isFavorite)
         }
     }
 
@@ -97,11 +136,44 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 .into(getViewBinding().imgAvatar)
             getViewBinding().tvName.text = name
 
-            if (bio.toString().isNullOrEmpty()) getViewBinding().tvBio.text = getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
+            if (bio.toString().isEmpty()) getViewBinding().tvBio.text =
+                getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
 
-            if (company.toString().isNullOrEmpty()) getViewBinding().tvCompany.text = getString(R.string.text_company_empty) else getViewBinding().tvCompany.text = company
+            if (company.toString().isEmpty()) getViewBinding().tvCompany.text =
+                getString(R.string.text_company_empty) else getViewBinding().tvCompany.text =
+                company
 
-            if (location.toString().isNullOrEmpty()) getViewBinding().tvLocation.text = getString(R.string.text_location_empty) else getViewBinding().tvLocation.text = location
+            if (location.toString().isEmpty()) getViewBinding().tvLocation.text =
+                getString(R.string.text_location_empty) else getViewBinding().tvLocation.text =
+                location
+
+            /**
+             * handle user when click fab
+             * insert data to favorite or delete data from favorite
+             * change icon fab when clicked
+             */
+            getViewBinding().fabFavorite.setOnClickListener {
+                if (isFavorite) {
+                    getViewModel().deleteUser(this@DetailUserFragment.username)
+                    isFavorite = !isFavorite
+                    checkDataFavorite(isFavorite)
+                } else {
+                    getViewModel().insertUser(User(username = this.username, avatarUrl = this.avatarUrl, profileUrl = this.urlProfile))
+                    isFavorite = !isFavorite
+                    checkDataFavorite(isFavorite)
+                }
+            }
+        }
+    }
+
+    /**
+     * function to change icon fab when status isFavorite true or false
+     */
+    private fun checkDataFavorite(isFavorite: Boolean) {
+        if (isFavorite) {
+            getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite)
+        } else {
+            getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite_border)
         }
     }
 
@@ -112,7 +184,11 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
 
     override fun showError(isError: Boolean, msg: String?) {
         super.showError(isError, msg)
-        if (isError) Snackbar.make(requireActivity().findViewById(android.R.id.content), msg.toString(), Snackbar.LENGTH_SHORT).show()
+        if (isError) Snackbar.make(
+            requireActivity().findViewById(android.R.id.content),
+            msg.toString(),
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun showLoading(isLoading: Boolean) {
@@ -123,6 +199,5 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
             getViewBinding().progressBar.visibility = View.INVISIBLE
         }
     }
-
 
 }

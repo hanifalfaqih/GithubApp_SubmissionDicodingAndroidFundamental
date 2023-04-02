@@ -13,22 +13,12 @@
         <action
             android:id="@+id/action_listUserFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
+        <action
+            android:id="@+id/action_listUserFragment_to_listUserFavoriteFragment"
+            app:destination="@id/listUserFavoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
-        android:name="id.allana.githubapp_bfaa.ui.detail.DetailUserFragment"
-        android:label="Detail User"
-        tools:layout="@layout/fragment_detail_user">
-        <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_detailUserFragment_to_detailUserFragmentForViewPager"
-            app:destination="@id/detailUserFragmentForViewPager" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailUserFragmentForViewPager"
         android:name="id.allana.githubapp_bfaa.ui.detail.DetailUserFragment"
         android:label="Detail User"
         tools:layout="@layout/fragment_detail_user">
@@ -40,6 +30,10 @@
     <fragment
         android:id="@+id/listUserFavoriteFragment"
         android:name="id.allana.githubapp_bfaa.ui.favorite.ListUserFavoriteFragment"
-        android:label="fragment_list_user_favorite"
-        tools:layout="@layout/fragment_list_user_favorite" />
+        android:label="Favorite User"
+        tools:layout="@layout/fragment_list_user_favorite" >
+        <action
+            android:id="@+id/action_listUserFavoriteFragment_to_detailUserFragment"
+            app:destination="@id/detailUserFragment" />
+    </fragment>
 </navigation>

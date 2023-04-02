@@ -2,12 +2,10 @@ package id.allana.githubapp_bfaa.ui.detail.viewpager.listfollowing
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import id.allana.githubapp_bfaa.databinding.ListItemUserBinding
-import id.allana.githubapp_bfaa.ui.detail.DetailUserFragmentDirections
 
 class ListFollowingAdapter: RecyclerView.Adapter<ListFollowingAdapter.ListFollowingViewHolder>() {
 
@@ -35,10 +33,6 @@ class ListFollowingAdapter: RecyclerView.Adapter<ListFollowingAdapter.ListFollow
                 Glide.with(itemView)
                     .load(this.avatarUrl)
                     .into(binding.imgAvatar)
-                itemView.setOnClickListener {
-                    val actionDetail = DetailUserFragmentDirections.actionDetailUserFragmentToDetailUserFragmentForViewPager(this.username)
-                    it.findNavController().navigate(actionDetail)
-                }
             }
         }
     }

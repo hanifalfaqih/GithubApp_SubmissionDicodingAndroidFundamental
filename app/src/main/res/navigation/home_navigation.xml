@@ -23,18 +23,5 @@
             android:name="username"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_detailUserFragment_to_detailUserFragmentForViewPager"
-            app:destination="@id/detailUserFragmentForViewPager" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailUserFragmentForViewPager"
-        android:name="id.allana.githubapp_bfaa.ui.detail.DetailUserFragment"
-        android:label="Detail User"
-        tools:layout="@layout/fragment_detail_user">
-        <argument
-            android:name="username"
-            app:argType="string"
-            app:nullable="true" />
     </fragment>
 </navigation>

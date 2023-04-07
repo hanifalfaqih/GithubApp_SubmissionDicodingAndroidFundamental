@@ -10,13 +10,15 @@ interface DetailUserContract {
 
     interface View: BaseContract.BaseView {
         fun getDataDetail(path: String)
+        fun getStatusFavorite(path: String)
         fun setDataDetail(data: ResponseDetailUser)
     }
 
     interface ViewModel: BaseContract.BaseViewModel {
         fun getDetailUser(path: String)
         fun getDetailUserLiveData(): LiveData<Resource<ResponseDetailUser>>
-        fun getFavoriteUserByUsername(username: String): LiveData<Boolean>
+        fun getFavoriteUserByUsername(username: String)
+        fun getFavoriteUserByUsernameLiveData(): LiveData<Boolean>
         fun deleteUser(username: String)
         fun deleteUserLiveData(): LiveData<Resource<Int>>
         fun insertUser(user: User)
@@ -25,7 +27,7 @@ interface DetailUserContract {
 
     interface Repository: BaseContract.BaseRepository {
         suspend fun getDetailUser(path: String): ResponseDetailUser
-        fun getFavoriteUserByUsername(username: String): LiveData<Boolean>
+        suspend fun getFavoriteUserByUsername(username: String): Boolean
         suspend fun deleteUser(username: String): Int
         suspend fun insertUser(user: User): Long
     }

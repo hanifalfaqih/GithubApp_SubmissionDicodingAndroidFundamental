@@ -42,8 +42,9 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
         val dataUsername by navArgs<DetailUserFragmentArgs>()
         dataUsername.username?.let {
             username = it
-            getDataDetail(it)
         }
+        getDataDetail(username)
+        getStatusFavorite(username)
 
         val mBundle = Bundle()
         mBundle.putString(EXTRA_USERNAME, dataUsername.username)
@@ -69,6 +70,10 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
 
     override fun getDataDetail(path: String) {
         getViewModel().getDetailUser(path)
+    }
+
+    override fun getStatusFavorite(path: String) {
+        getViewModel().getFavoriteUserByUsername(path)
     }
 
     override fun observeData() {
@@ -123,7 +128,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
          * use username to filter data
          * set value isFavorite true or false
          */
-        getViewModel().getFavoriteUserByUsername(username).observe(viewLifecycleOwner) { isFavorite ->
+        getViewModel().getFavoriteUserByUsernameLiveData().observe(viewLifecycleOwner) { isFavorite ->
             this.isFavorite = isFavorite
             checkDataFavorite(isFavorite)
         }
@@ -136,14 +141,14 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 .into(getViewBinding().imgAvatar)
             getViewBinding().tvName.text = name
 
-            if (bio.toString().isNullOrEmpty()) getViewBinding().tvBio.text =
+            if (bio.toString().isEmpty()) getViewBinding().tvBio.text =
                 getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
 
-            if (company.toString().isNullOrEmpty()) getViewBinding().tvCompany.text =
+            if (company.toString().isEmpty()) getViewBinding().tvCompany.text =
                 getString(R.string.text_company_empty) else getViewBinding().tvCompany.text =
                 company
 
-            if (location.toString().isNullOrEmpty()) getViewBinding().tvLocation.text =
+            if (location.toString().isEmpty()) getViewBinding().tvLocation.text =
                 getString(R.string.text_location_empty) else getViewBinding().tvLocation.text =
                 location
 

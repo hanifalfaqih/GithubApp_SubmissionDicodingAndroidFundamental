@@ -15,6 +15,7 @@ class DetailUserViewModel(private val detailUserRepository: DetailUserRepository
     private val detailUserLiveData = MutableLiveData<Resource<ResponseDetailUser>>()
     private val deleteUserLiveData = MutableLiveData<Resource<Int>>()
     private val insertUserLiveData = MutableLiveData<Resource<Long>>()
+    private val favoriteUserLiveData = MutableLiveData<Boolean>()
 
     override fun getDetailUser(path: String) {
         detailUserLiveData.value = Resource.Loading()
@@ -33,9 +34,17 @@ class DetailUserViewModel(private val detailUserRepository: DetailUserRepository
     }
 
     override fun getDetailUserLiveData(): LiveData<Resource<ResponseDetailUser>> = detailUserLiveData
-    override fun getFavoriteUserByUsername(username: String): LiveData<Boolean> {
-        return detailUserRepository.getFavoriteUserByUsername(username)
+    override fun getFavoriteUserByUsername(username: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = detailUserRepository.getFavoriteUserByUsername(username)
+            viewModelScope.launch(Dispatchers.Main) {
+                favoriteUserLiveData.value = response
+            }
+        }
     }
+
+    override fun getFavoriteUserByUsernameLiveData(): LiveData<Boolean> = favoriteUserLiveData
+
     override fun deleteUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {

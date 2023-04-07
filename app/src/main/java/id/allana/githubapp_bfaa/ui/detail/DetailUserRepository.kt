@@ -1,6 +1,5 @@
 package id.allana.githubapp_bfaa.ui.detail
 
-import androidx.lifecycle.LiveData
 import id.allana.githubapp_bfaa.data.datasource.local.UserDataSource
 import id.allana.githubapp_bfaa.data.datasource.network.GithubUserDataSource
 import id.allana.githubapp_bfaa.data.model.local.User
@@ -14,7 +13,7 @@ class DetailUserRepository(
         return githubUserDataSource.getDetailUser(path)
     }
 
-    override fun getFavoriteUserByUsername(username: String): LiveData<Boolean> {
+    override suspend fun getFavoriteUserByUsername(username: String): Boolean {
         return userDataSource.getFavoriteUserByUsername(username)
     }
 

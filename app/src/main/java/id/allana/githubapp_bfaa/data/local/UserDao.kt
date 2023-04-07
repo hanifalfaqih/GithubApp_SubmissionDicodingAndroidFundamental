@@ -1,6 +1,5 @@
 package id.allana.githubapp_bfaa.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import id.allana.githubapp_bfaa.data.model.local.User
 
@@ -11,7 +10,7 @@ interface UserDao {
     suspend fun getFavoriteUsers(): List<User>
 
     @Query("SELECT EXISTS(SELECT * FROM FavoriteUsers WHERE username = :username)")
-    fun getFavoriteUserByUsername(username: String): LiveData<Boolean>
+    suspend fun getFavoriteUserByUsername(username: String): Boolean
 
     @Query("DELETE FROM FavoriteUsers WHERE username = :username")
     suspend fun deleteFavoriteUser(username: String): Int

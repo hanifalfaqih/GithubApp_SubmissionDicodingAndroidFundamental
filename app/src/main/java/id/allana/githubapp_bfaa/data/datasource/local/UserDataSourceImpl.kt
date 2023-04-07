@@ -1,6 +1,5 @@
 package id.allana.githubapp_bfaa.data.datasource.local
 
-import androidx.lifecycle.LiveData
 import id.allana.githubapp_bfaa.data.local.UserDao
 import id.allana.githubapp_bfaa.data.model.local.User
 
@@ -10,7 +9,7 @@ class UserDataSourceImpl(private val userDao: UserDao): UserDataSource {
         return userDao.getFavoriteUsers()
     }
 
-    override fun getFavoriteUserByUsername(username: String): LiveData<Boolean> {
+    override suspend fun getFavoriteUserByUsername(username: String): Boolean {
         return userDao.getFavoriteUserByUsername(username)
     }
 

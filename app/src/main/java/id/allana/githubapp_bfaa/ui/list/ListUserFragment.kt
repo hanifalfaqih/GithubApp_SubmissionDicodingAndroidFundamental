@@ -10,6 +10,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import id.allana.githubapp_bfaa.R
@@ -70,7 +71,13 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
                 })
             }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean { return true }
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.favorite_menu) {
+                    val actionFavorite = ListUserFragmentDirections.actionListUserFragmentToListUserFavoriteFragment()
+                    findNavController().navigate(actionFavorite)
+                }
+                return true
+            }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 

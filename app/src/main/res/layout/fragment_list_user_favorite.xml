@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_github_user"
+        android:id="@+id/rv_favorite_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/list_item_user"
@@ -35,13 +35,13 @@
         android:alpha="0.5"
         android:fontFamily="sans-serif-black"
 
-        android:text="@string/text_greeting_home"
+        android:text="@string/text_empty_data_favorite"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_github_user"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/rv_favorite_user" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

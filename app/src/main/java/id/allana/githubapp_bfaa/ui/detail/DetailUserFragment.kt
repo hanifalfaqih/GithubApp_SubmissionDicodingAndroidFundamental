@@ -99,7 +99,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    showError(true, "Success add to favorite")
+                    showError(true, "Add to favorite")
                 }
                 is Resource.Error -> {
                     showError(true, "Failed add to favorite")
@@ -110,7 +110,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
             when (resource) {
                 is Resource.Loading -> {}
                 is Resource.Success -> {
-                    showError(true, "Success delete from favorite")
+                    showError(true, "Delete from favorite")
                 }
                 is Resource.Error -> {
                     showError(true, "Failed delete from favorite")
@@ -136,14 +136,14 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 .into(getViewBinding().imgAvatar)
             getViewBinding().tvName.text = name
 
-            if (bio.toString().isEmpty()) getViewBinding().tvBio.text =
+            if (bio.toString().isNullOrEmpty()) getViewBinding().tvBio.text =
                 getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
 
-            if (company.toString().isEmpty()) getViewBinding().tvCompany.text =
+            if (company.toString().isNullOrEmpty()) getViewBinding().tvCompany.text =
                 getString(R.string.text_company_empty) else getViewBinding().tvCompany.text =
                 company
 
-            if (location.toString().isEmpty()) getViewBinding().tvLocation.text =
+            if (location.toString().isNullOrEmpty()) getViewBinding().tvLocation.text =
                 getString(R.string.text_location_empty) else getViewBinding().tvLocation.text =
                 location
 

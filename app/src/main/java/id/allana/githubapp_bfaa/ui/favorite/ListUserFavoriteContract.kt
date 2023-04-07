@@ -1,8 +1,7 @@
 package id.allana.githubapp_bfaa.ui.favorite
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import id.allana.githubapp_bfaa.data.base.BaseContract
-import id.allana.githubapp_bfaa.data.base.Resource
 import id.allana.githubapp_bfaa.data.model.local.User
 
 interface ListUserFavoriteContract {
@@ -14,12 +13,11 @@ interface ListUserFavoriteContract {
     }
 
     interface ViewModel: BaseContract.BaseViewModel {
-        fun getAllUser()
-        fun getAllUserLiveData(): MutableLiveData<Resource<List<User>>>
+        fun getAllUserLiveData(): LiveData<List<User>>
     }
 
     interface Repository: BaseContract.BaseRepository {
-        suspend fun getAllUser(): List<User>
+        fun getAllUser(): LiveData<List<User>>
     }
 
 }

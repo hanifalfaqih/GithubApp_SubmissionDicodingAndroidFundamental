@@ -6,7 +6,7 @@ import id.allana.githubapp_bfaa.data.model.local.User
 
 class UserDataSourceImpl(private val userDao: UserDao): UserDataSource {
 
-    override suspend fun getAllUser(): List<User> {
+    override fun getAllUser(): LiveData<List<User>> {
         return userDao.getFavoriteUsers()
     }
 

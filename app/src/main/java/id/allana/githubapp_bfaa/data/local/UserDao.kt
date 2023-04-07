@@ -8,7 +8,7 @@ import id.allana.githubapp_bfaa.data.model.local.User
 interface UserDao {
 
     @Query("SELECT * FROM FavoriteUsers")
-    suspend fun getFavoriteUsers(): List<User>
+    fun getFavoriteUsers(): LiveData<List<User>>
 
     @Query("SELECT EXISTS(SELECT * FROM FavoriteUsers WHERE username = :username)")
     fun getFavoriteUserByUsername(username: String): LiveData<Boolean>

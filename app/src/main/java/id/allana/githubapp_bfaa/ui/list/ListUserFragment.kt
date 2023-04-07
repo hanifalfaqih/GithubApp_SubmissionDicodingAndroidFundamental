@@ -1,14 +1,17 @@
 package id.allana.githubapp_bfaa.ui.list
 
+import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +21,8 @@ import id.allana.githubapp_bfaa.data.base.BaseFragment
 import id.allana.githubapp_bfaa.data.base.GenericViewModelFactory
 import id.allana.githubapp_bfaa.data.base.Resource
 import id.allana.githubapp_bfaa.data.datasource.network.GithubUserDataSourceImpl
+import id.allana.githubapp_bfaa.data.datasource.preference.PreferenceDataSourceImpl
+import id.allana.githubapp_bfaa.data.datasource.preference.SettingThemePreference
 import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import id.allana.githubapp_bfaa.databinding.FragmentListUserBinding
 
@@ -26,6 +31,8 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
 ), ListUserContract.View {
 
     private lateinit var adapter: ListUserAdapter
+    private val Context.dataStore by preferencesDataStore("setting")
+
 
     override fun initView() {
         setTextEmptyData(true)
@@ -34,8 +41,10 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
     }
 
     override fun initViewModel(): ListUserViewModel {
-        val dataSource = GithubUserDataSourceImpl()
-        val repository = ListUserRepository(dataSource)
+        val settingThemePreference = SettingThemePreference.getInstance(requireContext().dataStore)
+        val preferenceDataSource = PreferenceDataSourceImpl(settingThemePreference)
+        val networkDataSource = GithubUserDataSourceImpl()
+        val repository = ListUserRepository(networkDataSource, preferenceDataSource)
         return GenericViewModelFactory(ListUserViewModel(repository)).create(ListUserViewModel::class.java)
     }
 
@@ -75,6 +84,9 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
                 if (menuItem.itemId == R.id.favorite_menu) {
                     val actionFavorite = ListUserFragmentDirections.actionListUserFragmentToListUserFavoriteFragment()
                     findNavController().navigate(actionFavorite)
+                } else if (menuItem.itemId == R.id.setting_theme_menu) {
+                    val actionSetting = ListUserFragmentDirections.actionListUserFragmentToSettingThemeFragment()
+                    findNavController().navigate(actionSetting)
                 }
                 return true
             }
@@ -103,6 +115,13 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
                     showError(true, getString(R.string.text_error_failed_get_data))
                     setTextEmptyData(false)
                 }
+            }
+        }
+        getViewModel().getThemeSetting().observe(viewLifecycleOwner) { isDarkModeActive ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }

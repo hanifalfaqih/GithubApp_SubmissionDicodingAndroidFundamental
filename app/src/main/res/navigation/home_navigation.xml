@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_listUserFragment_to_listUserFavoriteFragment"
             app:destination="@id/listUserFavoriteFragment" />
+        <action
+            android:id="@+id/action_listUserFragment_to_settingThemeFragment"
+            app:destination="@id/settingThemeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailUserFragment"
@@ -36,4 +39,9 @@
             android:id="@+id/action_listUserFavoriteFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingThemeFragment"
+        android:name="id.allana.githubapp_bfaa.ui.setting.SettingThemeFragment"
+        android:label="Setting"
+        tools:layout="@layout/fragment_setting_theme" />
 </navigation>

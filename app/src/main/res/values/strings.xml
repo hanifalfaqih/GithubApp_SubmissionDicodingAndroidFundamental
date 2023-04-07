@@ -10,4 +10,6 @@
     <string name="text_error_failed_get_data">Failed get data</string>
     <string name="favorite_menu">Favorite Menu</string>
     <string name="text_empty_data_favorite">Nothing data in user favorite!</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="setting_menu">Setting</string>
 </resources>

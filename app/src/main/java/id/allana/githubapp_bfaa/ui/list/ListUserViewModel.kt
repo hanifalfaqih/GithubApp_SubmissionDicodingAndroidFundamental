@@ -9,9 +9,14 @@ import id.allana.githubapp_bfaa.data.model.network.ItemsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ListUserViewModel(private val listUserRepository: ListUserRepository): BaseViewModelImpl(), ListUserContract.ViewModel {
+class ListUserViewModel(
+    private val listUserRepository: ListUserRepository
+): BaseViewModelImpl(), ListUserContract.ViewModel {
 
     private val listSearchUserLiveData = MutableLiveData<Resource<List<ItemsItem>?>>()
+    override fun getThemeSetting(): LiveData<Boolean> {
+        return listUserRepository.getThemeSetting()
+    }
 
     override fun getSearchUser(query: String) {
         listSearchUserLiveData.value = Resource.Loading()

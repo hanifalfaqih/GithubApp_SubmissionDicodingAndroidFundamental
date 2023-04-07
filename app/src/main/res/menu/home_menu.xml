@@ -15,4 +15,10 @@
         android:title="@string/favorite_menu"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/setting_theme_menu"
+        android:icon="@drawable/baseline_settings"
+        android:title="@string/setting_menu"
+        app:showAsAction="ifRoom"/>
+
 </menu>

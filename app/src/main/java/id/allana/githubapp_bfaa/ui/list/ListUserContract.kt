@@ -16,15 +16,11 @@ interface ListUserContract {
     }
 
     interface ViewModel: BaseContract.BaseViewModel {
-        fun getThemeSetting(): LiveData<Boolean>
-
         fun getSearchUser(query: String)
         fun getSearchUserLiveData(): LiveData<Resource<List<ItemsItem>?>>
     }
 
     interface Repository: BaseContract.BaseRepository {
-        fun getThemeSetting(): LiveData<Boolean>
-
         suspend fun getSearchUser(query: String): ResponseSearchUser
     }
 

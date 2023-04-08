@@ -14,9 +14,6 @@ class ListUserViewModel(
 ): BaseViewModelImpl(), ListUserContract.ViewModel {
 
     private val listSearchUserLiveData = MutableLiveData<Resource<List<ItemsItem>?>>()
-    override fun getThemeSetting(): LiveData<Boolean> {
-        return listUserRepository.getThemeSetting()
-    }
 
     override fun getSearchUser(query: String) {
         listSearchUserLiveData.value = Resource.Loading()

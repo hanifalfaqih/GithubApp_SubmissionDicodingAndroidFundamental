@@ -97,11 +97,11 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 .into(getViewBinding().imgAvatar)
             getViewBinding().tvName.text = name
 
-            if (bio.toString().isNullOrEmpty()) getViewBinding().tvBio.text = getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
+            if (bio.toString().isEmpty()) getViewBinding().tvBio.text = getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
 
-            if (company.toString().isNullOrEmpty()) getViewBinding().tvCompany.text = getString(R.string.text_company_empty) else getViewBinding().tvCompany.text = company
+            if (company.toString().isEmpty()) getViewBinding().tvCompany.text = getString(R.string.text_company_empty) else getViewBinding().tvCompany.text = company
 
-            if (location.toString().isNullOrEmpty()) getViewBinding().tvLocation.text = getString(R.string.text_location_empty) else getViewBinding().tvLocation.text = location
+            if (location.toString().isEmpty()) getViewBinding().tvLocation.text = getString(R.string.text_location_empty) else getViewBinding().tvLocation.text = location
         }
     }
 

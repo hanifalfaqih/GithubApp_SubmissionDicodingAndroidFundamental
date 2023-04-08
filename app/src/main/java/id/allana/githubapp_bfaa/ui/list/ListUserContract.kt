@@ -13,6 +13,7 @@ interface ListUserContract {
         fun setDataAdapter(listItem: List<ItemsItem>)
         fun setupMenu()
         fun setTextEmptyData(isVisible: Boolean)
+        fun searchUser(query: String)
     }
 
     interface ViewModel: BaseContract.BaseViewModel {

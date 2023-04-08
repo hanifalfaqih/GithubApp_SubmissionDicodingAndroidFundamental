@@ -9,4 +9,6 @@
     <string name="tab_follower_user">Follower</string>
     <string name="text_greeting_home">Please use the search feature to find Github user data</string>
     <string name="text_error_failed_get_data">Gagal mendapatkan data</string>
+    <string name="text_total_followers">Followers %d</string>
+    <string name="text_total_followings">Followings %d</string>
 </resources>

@@ -49,6 +49,20 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="center"
+                    tools:text="Username"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/tv_bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,13 +97,49 @@
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginRight="24dp"
-                    android:layout_marginBottom="32dp"
                     android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
                     tools:text="Company"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="32dp"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tv_total_followers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="24dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        tools:text="Total Follower"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_following"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="24dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center"
+                        tools:text="Total Following"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -116,6 +166,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:layout_gravity="center"
         android:visibility="invisible" />
 

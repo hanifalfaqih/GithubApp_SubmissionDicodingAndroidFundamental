@@ -22,7 +22,7 @@ import id.allana.githubapp_bfaa.databinding.FragmentListUserBinding
 
 class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel>(
     FragmentListUserBinding::inflate
-), ListUserContract.View {
+), ListUserContract.View, OnQueryTextListener {
 
     private lateinit var adapter: ListUserAdapter
 
@@ -58,16 +58,7 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
                 val search = menu.findItem(R.id.search_menu)
                 val searchView = search.actionView as SearchView
                 searchView.isSubmitButtonEnabled = true
-                searchView.setOnQueryTextListener(object: OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        if (query != null) {
-                            getViewModel().getSearchUser(query)
-                        }
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean { return true }
-                })
+                searchView.setOnQueryTextListener(this@ListUserFragment)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean { return true }
@@ -108,6 +99,10 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
         }
     }
 
+    override fun searchUser(query: String) {
+        getViewModel().getSearchUser(query)
+    }
+
     override fun showContent(isVisible: Boolean) {
         super.showContent(isVisible)
         getViewBinding().rvGithubUser.isVisible = isVisible
@@ -125,5 +120,16 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
     override fun showError(isError: Boolean, msg: String?) {
         super.showError(isError, msg)
         if (isError) Snackbar.make(requireActivity().findViewById(android.R.id.content), msg.toString(), Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchUser(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        return true
     }
 }

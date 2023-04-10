@@ -41,13 +41,13 @@ class ListUserFragment : BaseFragment<FragmentListUserBinding, ListUserViewModel
     override fun initList() {
         adapter = ListUserAdapter()
         getViewBinding().rvGithubUser.apply {
-            adapter = this@ListUserFragment.adapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     override fun setDataAdapter(listItem: List<ItemsItem>) {
         this@ListUserFragment.adapter.setListItems(listItem)
+        getViewBinding().rvGithubUser.adapter = this@ListUserFragment.adapter
     }
 
     override fun setupMenu() {

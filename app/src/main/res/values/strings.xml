@@ -12,4 +12,6 @@
     <string name="text_empty_data_favorite">Nothing data in user favorite!</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="setting_menu">Setting</string>
+    <string name="text_total_followers">Followers %d</string>
+    <string name="text_total_followings">Followings %d</string>
 </resources>

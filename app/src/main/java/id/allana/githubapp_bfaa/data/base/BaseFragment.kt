@@ -11,7 +11,9 @@ abstract class BaseFragment<B: ViewBinding, VM: BaseContract.BaseViewModel>(
     val bindingFactory: (LayoutInflater, ViewGroup?, Boolean) -> B
 ): Fragment(), BaseContract.BaseView {
 
-    private lateinit var binding: B
+    private var _binding: B? = null
+    private val binding get() = _binding!!
+
     private lateinit var viewModel: VM
 
     override fun onCreateView(
@@ -19,7 +21,7 @@ abstract class BaseFragment<B: ViewBinding, VM: BaseContract.BaseViewModel>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = bindingFactory(layoutInflater, container, false)
+        _binding = bindingFactory(layoutInflater, container, false)
         return binding.root
     }
 
@@ -43,4 +45,8 @@ abstract class BaseFragment<B: ViewBinding, VM: BaseContract.BaseViewModel>(
     override fun showLoading(isLoading: Boolean) {}
 
     override fun showError(isError: Boolean, msg: String?) {}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

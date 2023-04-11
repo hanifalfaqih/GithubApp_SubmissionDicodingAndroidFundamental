@@ -26,15 +26,6 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
     FragmentDetailUserBinding::inflate
 ), DetailUserContract.View {
 
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_following_user,
-            R.string.tab_follower_user
-        )
-        const val EXTRA_USERNAME = "extra_username"
-    }
-
     private var isFavorite = false
     private lateinit var username: String
 
@@ -140,17 +131,13 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
                 .load(avatarUrl)
                 .into(getViewBinding().imgAvatar)
             getViewBinding().tvName.text = name
+            getViewBinding().tvUsername.text = username
+            getViewBinding().tvTotalFollowers.text = getString(R.string.text_total_followers, followers)
+            getViewBinding().tvTotalFollowing.text = getString(R.string.text_total_followings, following)
 
-            if (bio.toString().isEmpty()) getViewBinding().tvBio.text =
-                getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
-
-            if (company.toString().isEmpty()) getViewBinding().tvCompany.text =
-                getString(R.string.text_company_empty) else getViewBinding().tvCompany.text =
-                company
-
-            if (location.toString().isEmpty()) getViewBinding().tvLocation.text =
-                getString(R.string.text_location_empty) else getViewBinding().tvLocation.text =
-                location
+            if (bio.toString().isEmpty()) getViewBinding().tvBio.text = getString(R.string.text_bio_empty) else getViewBinding().tvBio.text = bio.toString()
+            if (company.toString().isEmpty()) getViewBinding().tvCompany.text = getString(R.string.text_company_empty) else getViewBinding().tvCompany.text = company
+            if (location.toString().isEmpty()) getViewBinding().tvLocation.text = getString(R.string.text_location_empty) else getViewBinding().tvLocation.text = location
 
             /**
              * handle user when click fab
@@ -175,11 +162,7 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
      * function to change icon fab when status isFavorite true or false
      */
     private fun checkDataFavorite(isFavorite: Boolean) {
-        if (isFavorite) {
-            getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite)
-        } else {
-            getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite_border)
-        }
+        if (isFavorite) getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite) else getViewBinding().fabFavorite.setImageResource(R.drawable.baseline_favorite_border)
     }
 
     override fun showContent(isVisible: Boolean) {
@@ -198,11 +181,16 @@ class DetailUserFragment : BaseFragment<FragmentDetailUserBinding, DetailUserVie
 
     override fun showLoading(isLoading: Boolean) {
         super.showLoading(isLoading)
-        if (isLoading) {
-            getViewBinding().progressBar.visibility = View.VISIBLE
-        } else {
-            getViewBinding().progressBar.visibility = View.INVISIBLE
-        }
+        getViewBinding().progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_following_user,
+            R.string.tab_follower_user
+        )
+        const val EXTRA_USERNAME = "extra_username"
     }
 
 }
